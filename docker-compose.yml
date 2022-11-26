@@ -5,10 +5,21 @@ services:
     # The official Traefik docker image
     image: traefik
     command:
-      - --providers.docker  # Tells Traefik to listen to docker
+        # Tell Traefik to listen to docker
+      - --providers.docker
+      # Use Let's Encrypt to generate certificates
+      - --certificatesresolvers.le.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory
+      - --certificatesresolvers.le.acme.email=${LE_EMAIL}
+      - --certificatesresolvers.le.acme.storage=/mnt/letsencrypt/acme.json
+      #- --log.level=DEBUG
     ports:
-      # The HTTP port
-      - "80:80"
+      - "80:80"     # HTTP
+      - "443:443"   # HTTPS
     volumes:
-      # So that Traefik can listen to the Docker events
+      # Let's Encrypt certificates
+      - letsencrypt:/mnt/letsencrypt
+      # Allow Traefik to listen to Docker events
       - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  letsencrypt:
