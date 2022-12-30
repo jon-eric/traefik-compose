@@ -5,8 +5,11 @@ services:
     # The official Traefik docker image
     image: traefik
     command:
-        # Tell Traefik to listen to docker
+      # Tell Traefik to listen to docker
       - --providers.docker
+      # Entrypoints
+      - --entrypoints.http.address=:80
+      - --entrypoints.https.address=:443
       # Use Let's Encrypt to generate certificates
       - --certificatesresolvers.le.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.le.acme.email=${LE_EMAIL}
