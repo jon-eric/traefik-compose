@@ -11,6 +11,7 @@ services:
       - --certificatesresolvers.le.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.le.acme.email=${LE_EMAIL}
       - --certificatesresolvers.le.acme.storage=/mnt/letsencrypt/acme.json
+      - --certificatesresolvers.le.acme.tlschallenge=true
       #- --log.level=DEBUG
     ports:
       - "80:80"     # HTTP
