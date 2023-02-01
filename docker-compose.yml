@@ -27,3 +27,9 @@ services:
 
 volumes:
   letsencrypt:
+
+# Create a network named 'traefik'
+networks:
+  default:
+    name: traefik
+    external: false
